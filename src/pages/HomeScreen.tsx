@@ -23,13 +23,11 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     backgroundColor: '#030425',
   },
   title: {
     fontSize: 42,
-    marginTop: 180,
-    fontFamily: 'Ubuntu-Medium',
   },
   subtitle: {
     color: '#6C63FF',
