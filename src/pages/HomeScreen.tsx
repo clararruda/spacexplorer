@@ -19,6 +19,8 @@ export const HomeScreen = ({navigation}) => {
   const {data: launchesData} = useQuery(pastLaunches, {
     variables: {
       limit: 10,
+      sort: 'launch_date_local',
+      order: 'desc',
     },
   });
 

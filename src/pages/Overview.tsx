@@ -7,8 +7,7 @@ import {Launches} from '../services/launches';
 export const Overview = ({navigation}) => {
   const {storage, setStorage} = useContext(Context);
   const noImage =
-    'https://lh3.googleusercontent.com/proxy/fVqqRdlQrKVt1IteGgIkSWrmGa2I1D25DTEazgBUlOby9cT3BFl3WBco6vqSNCykQKLAS2RcmBV3hZQNRTmNpEaslrvteEmXEebG9VNtSYgpD2kwTL6sGSq0wK03CF70';
-
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png';
   function handleDetails(launch: Launches) {
     navigation.navigate('LaunchDetails', {launch});
   }

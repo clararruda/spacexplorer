@@ -9,7 +9,7 @@ interface Props {
 
 export function ImageCarousel({images}: Props) {
   const noImage =
-    'https://lh3.googleusercontent.com/proxy/fVqqRdlQrKVt1IteGgIkSWrmGa2I1D25DTEazgBUlOby9cT3BFl3WBco6vqSNCykQKLAS2RcmBV3hZQNRTmNpEaslrvteEmXEebG9VNtSYgpD2kwTL6sGSq0wK03CF70';
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png';
   const [shouldShowAngle, setShouldShowAngle] = useState(true);
   const [currentImage, setCurrentImage] = useState(noImage);
 
