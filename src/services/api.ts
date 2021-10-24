@@ -1,26 +1,8 @@
-import axios from 'axios';
+import {ApolloClient, InMemoryCache} from '@apollo/client';
 
-const api = axios.create({
-  baseURL: 'http://https://api.spacex.land/graphql/',
-  responseType: 'json',
+const client = new ApolloClient({
+  uri: 'https://api.spacex.land/graphql',
+  cache: new InMemoryCache(),
 });
 
-export default api;
-
-// interface launchesPast {
-//   mission_name: string;
-//   launch_date_local: string;
-//   launch_site: LaunchSite;
-//   links: Links;
-//   rocket: Rocket;
-// }
-// interface LaunchSite {
-//   site_name_long: string;
-// }
-// interface Links {
-//   article_link: string;
-//   flickr_images: [];
-// }
-// interface Rocket {
-//   rocket_name: string;
-// }
+export default client;

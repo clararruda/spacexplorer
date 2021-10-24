@@ -1,34 +1,41 @@
+import {useQuery} from '@apollo/client';
 import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {MissionCard} from '../components/MissionCard';
-// import api from '../services/api';
+import {Launches} from '../services/launches';
+import {pastLaunches} from '../services/query';
 
 export const Overview = ({navigation}) => {
-  function handleDetails() {
-    navigation.navigate('LaunchDetails');
+  const noImage =
+    'https://lh3.googleusercontent.com/proxy/fVqqRdlQrKVt1IteGgIkSWrmGa2I1D25DTEazgBUlOby9cT3BFl3WBco6vqSNCykQKLAS2RcmBV3hZQNRTmNpEaslrvteEmXEebG9VNtSYgpD2kwTL6sGSq0wK03CF70';
+
+  function handleDetails(launch: Launches) {
+    navigation.navigate('LaunchDetails', {launch});
   }
+
+  const {data: launchesData} = useQuery(pastLaunches, {
+    variables: {
+      limit: 10,
+    },
+  });
 
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.content}>
-        <MissionCard
-          title="Starlink-15 (v1.0)"
-          date="2020-10-24T11:31:00-04:00"
-          imageLink="https://live.staticflickr.com/65535/50631642722_3af8131c6f_o.jpg"
-          nextPage={handleDetails}
-        />
-        <MissionCard
-          title="Crew-1"
-          date="2020-10-24T11:31:00-04:00"
-          imageLink="https://live.staticflickr.com/65535/50618376646_8f52c31fc4_o.jpg"
-          nextPage={handleDetails}
-        />
-        <MissionCard
-          title="GPS III SV04 (Sacagawea)"
-          date="2020-10-24T11:31:00-04:00"
-          imageLink="https://live.staticflickr.com/65535/50617626408_fb0bba0f89_o.jpg"
-          nextPage={handleDetails}
-        />
+        {launchesData &&
+          launchesData.launchesPast.map((launch: Launches, key) => (
+            <MissionCard
+              key={launch.mission_name}
+              title={launch.mission_name}
+              date={launch.launch_date_local.split('T', 1).toString()}
+              imageLink={
+                launch.links.flickr_images[0] != null
+                  ? launch.links.flickr_images[0]
+                  : noImage
+              }
+              nextPage={() => handleDetails(launch)}
+            />
+          ))}
       </View>
     </ScrollView>
   );

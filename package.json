@@ -10,10 +10,12 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@apollo/client": "^3.4.16",
     "@nick-bull/react-native-debug-address": "^0.1.91",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "axios": "^0.23.0",
+    "graphql": "^15.6.1",
     "react": "17.0.2",
     "react-native": "0.66.1",
     "react-native-elements": "^3.4.2",

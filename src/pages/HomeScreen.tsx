@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 42,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
   },
   subtitle: {
     color: '#6C63FF',

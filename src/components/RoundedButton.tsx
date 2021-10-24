@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface Props {
@@ -9,8 +9,18 @@ interface Props {
 
 export function RoundedButton({url, icon}: Props) {
   const handlePress = useCallback(async () => {
-    await Linking.openURL(url);
-  }, [url]);
+    if (url === null) {
+      Alert.alert('No link available');
+    } else {
+      if (icon === 'link') {
+        await Linking.openURL(url);
+      } else {
+        await Linking.openURL(
+          `https://www.google.com/search?q=${url.replace(' ', '+')}`,
+        );
+      }
+    }
+  }, [icon, url]);
 
   return (
     <TouchableOpacity onPress={handlePress}>

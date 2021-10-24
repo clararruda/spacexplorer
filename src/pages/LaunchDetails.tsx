@@ -3,25 +3,37 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {ImageCarousel} from '../components/ImageCarousel';
 import {ListItem} from '../components/ListItem';
 import {RoundedButton} from '../components/RoundedButton';
-export const LaunchDetails = () => {
-  const supportedURL = 'https://google.com';
+
+export const LaunchDetails = ({route}) => {
+  const {launch} = route.params;
 
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.content}>
-        <Text style={styles.title}>Mission: Starlink-15 (v1.0)</Text>
-        <ImageCarousel
-          images={[
-            'https://live.staticflickr.com/65535/50618376646_8f52c31fc4_o.jpg',
-            'https://live.staticflickr.com/65535/50617626408_fb0bba0f89_o.jpg',
-            'https://live.staticflickr.com/65535/50631642722_3af8131c6f_o.jpg',
-          ]}
+        <Text style={styles.title}>{launch.mission_name}</Text>
+        <ImageCarousel images={launch.links.flickr_images} />
+        <ListItem
+          icon="rocket"
+          iconSize={30}
+          text={launch.rocket.rocket_name}
         />
-        <ListItem icon="rocket" iconSize={30} text="Falcon 9" />
-        <ListItem icon="calendar" iconSize={30} text="2020-10-24" />
+        <ListItem
+          icon="calendar"
+          iconSize={30}
+          text={launch.launch_date_local.split('T', 1).toString()}
+        />
         <View style={styles.row_wrapper}>
-          <RoundedButton url={supportedURL} icon="link" />
-          <RoundedButton url={supportedURL} icon="map-marker" />
+          <View style={styles.column_wrapper}>
+            <RoundedButton url={launch.links.article_link} icon="link" />
+            <Text style={styles.subtitle}>Article</Text>
+          </View>
+          <View style={styles.column_wrapper}>
+            <RoundedButton
+              url={launch.launch_site.site_name_long}
+              icon="map-marker"
+            />
+            <Text style={styles.subtitle}>Location</Text>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -42,11 +54,18 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginBottom: 30,
   },
+  subtitle: {
+    color: '#FFFFFF',
+  },
   row_wrapper: {
     width: '80%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginTop: 50,
+  },
+  column_wrapper: {
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 });
