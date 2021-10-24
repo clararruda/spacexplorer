@@ -1,11 +1,26 @@
 // import {useNavigation} from '@react-navigation/core';
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useContext} from 'react';
+import {useQuery} from '@apollo/client';
+import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {pastLaunches} from '../services/query';
+import Context from '../contexts/Context';
 
 export const HomeScreen = ({navigation}) => {
+  const {setStorage: setStorage} = useContext(Context);
+
   function handleTap() {
+    setStorage({
+      favorite: [],
+      launches: launchesData,
+    });
     navigation.navigate('Overview');
   }
+
+  const {data: launchesData} = useQuery(pastLaunches, {
+    variables: {
+      limit: 10,
+    },
+  });
 
   return (
     <TouchableOpacity style={styles.content} onPress={handleTap}>

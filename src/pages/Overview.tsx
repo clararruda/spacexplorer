@@ -1,11 +1,11 @@
-import {useQuery} from '@apollo/client';
-import React from 'react';
+import React, {useContext} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {MissionCard} from '../components/MissionCard';
+import Context from '../contexts/Context';
 import {Launches} from '../services/launches';
-import {pastLaunches} from '../services/query';
 
 export const Overview = ({navigation}) => {
+  const {storage, setStorage} = useContext(Context);
   const noImage =
     'https://lh3.googleusercontent.com/proxy/fVqqRdlQrKVt1IteGgIkSWrmGa2I1D25DTEazgBUlOby9cT3BFl3WBco6vqSNCykQKLAS2RcmBV3hZQNRTmNpEaslrvteEmXEebG9VNtSYgpD2kwTL6sGSq0wK03CF70';
 
@@ -13,17 +13,11 @@ export const Overview = ({navigation}) => {
     navigation.navigate('LaunchDetails', {launch});
   }
 
-  const {data: launchesData} = useQuery(pastLaunches, {
-    variables: {
-      limit: 10,
-    },
-  });
-
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.content}>
-        {launchesData &&
-          launchesData.launchesPast.map((launch: Launches, key) => (
+        {storage &&
+          storage.launches.launchesPast.map((launch: Launches) => (
             <MissionCard
               key={launch.mission_name}
               title={launch.mission_name}
